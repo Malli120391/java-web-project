@@ -18,7 +18,8 @@ pipeline{
             }
         } 
         stage("depoly-dev"){
-            sshagent(['tomcat-new']) {
+           steps{
+              sshagent(['tomcat-new']) {
                 sh """
                     scp -o StrictHostKeyChecking=no target/java-web-project.war root@172.31.3.225:/opt/tomcat8/webapps/
                     
@@ -27,6 +28,7 @@ pipeline{
                     ssh root@172.31.3.225 /opt/tomcat8/webapps/startup.sh
                 
                 """
+                }
            }
         }
     }
